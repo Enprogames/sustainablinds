@@ -1,9 +1,9 @@
-# Sustainablinds django project
+# Sustainablinds project
 
 ## Installation
 1. Navigate to project folder using `cd 'folder'` in git bash on windows or terminal on linux
-2. Run `git clone https://github.com/Enprogames/sustainablinds-django.git`
-3. Move into project directory: `cd sustainablinds-django`
+2. Run `git clone https://github.com/Enprogames/sustainablinds.git`
+3. Move into project directory: `cd sustainablinds`
 4. Run setup.sh script: `./setup.sh`. This does the following:
     - Creates and activates a virtual environment with venv
     - Upgrades pip to latest version and installs all packages from requirements.txt
