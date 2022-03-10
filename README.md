@@ -47,5 +47,8 @@ This project is a simple Django website which can be used to optimally control w
 3. To start the website, run `django-website/manage.py runserver`
 4. Click on the link in the terminal, or go to `http://127.0.0.1:8000/` in your browser.
 
+At the time of writing, the following should be displayed in your browser if everything worked correctly
+![website-homepage](Documentation/Images/website-homepage.jpg)
+
 ## License
 
