@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from sustainablinds import views
 
 urlpatterns = [
-    path("", include("users.urls")),
+    path("", views.index),
+    path("dashboard", include("users.urls")),
     path('admin/', admin.site.urls),
 ]
