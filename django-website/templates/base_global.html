@@ -1,12 +1,22 @@
 <!--templates/base_global.html-->
 
-<style>
-    p {
-        color: blue;
-    }
-</style>
+{% load static %}
 
-<h1>Sustainablinds</h1>
+<html>
 
-{% block content_main %}
-{% endblock %}
+<head>
+    <!-- This is the head content defined in base_global.html -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% block head_global %}
+    {% endblock %}
+</head>
+
+<body>
+    <a href="/"><h1>Sustainablinds</h1></a>
+    {% block navbar_global %}
+    {% endblock %}
+    <hr>
+    {% block content_main %}
+    {% endblock %}
+</body>
+</html>

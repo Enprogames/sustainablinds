@@ -1,9 +1,16 @@
 <!--users/templates/base.html-->
 {% extends 'base_global.html' %}
 
+{% block head %}
+{% endblock %}
+
+
+{% block navbar_global %}
+    {% block navbar %}
+    {% endblock %}
+{% endblock %}
 {% block content_main %}
     <h2>User Login</h2>
-
     {% block content %}
     {% endblock %}
 {% endblock %}
