@@ -1,0 +1,12 @@
+html {
+    background-color: #2E3047;
+}
+body {
+    color: white;
+}
+h1, h2 {
+    color: white;
+}
+a, a:visited {
+    color: red;
+}

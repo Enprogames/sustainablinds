@@ -1,6 +1,16 @@
 <!--users/templates/base.html-->
+{% extends 'base_global.html' %}
 
-<h1>Sustainablinds</h1>
+{% block head %}
+{% endblock %}
 
-{% block content %}
+
+{% block navbar_global %}
+    {% block navbar %}
+    {% endblock %}
+{% endblock %}
+{% block content_main %}
+    <h2>User Login</h2>
+    {% block content %}
+    {% endblock %}
 {% endblock %}

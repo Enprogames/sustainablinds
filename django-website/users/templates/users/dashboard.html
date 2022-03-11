@@ -2,6 +2,12 @@
 
 {% extends 'base.html' %}
 
+{% block head %}
+{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
 {% block content %}
-Hello, {{ user.username|default:'Guest' }}!
+    <p>Hello, {{ user.username|default:'Guest' }}!</p>
 {% endblock %}
