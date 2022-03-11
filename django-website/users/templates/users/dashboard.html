@@ -2,8 +2,6 @@
 
 {% extends 'base.html' %}
 
-{% block content_main %}
-    {% block content %}
-        Hello, {{ user.username|default:'Guest' }}!
-    {% endblock %}
+{% block content %}
+    <p>Hello, {{ user.username|default:'Guest' }}!</p>
 {% endblock %}

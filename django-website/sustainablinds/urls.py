@@ -18,7 +18,7 @@ from django.urls import path, include
 from sustainablinds import views
 
 urlpatterns = [
-    path("", views.index),
-    path("dashboard", include("users.urls")),
+    path("", views.index, name="homepage"),
+    path("dashboard/", include("users.urls")),
     path('admin/', admin.site.urls),
 ]
