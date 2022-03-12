@@ -1,3 +1,17 @@
+// // FOR CSV FILE
+// const fs = require("fs");
+// const csv = require('csvtojson');
+// const { Parser } = require('json2csv');
+
+// (async () => {
+
+//   // Load files
+//   const heatGainData = await csv().fromFile("NameOfCSVFile.csv");
+
+
+// })
+
+
 let timeOfDay, timeOfDayVal;
 let monthVal, direction;
 let heatGain;
@@ -10,7 +24,7 @@ function setup() {
   // Interactive Components
   
   // SET HOUR OF THE DAY
-  timeOfDay = createSlider(4, 20, 0, 1).position(10, 20);
+  timeOfDay = createSlider(4, 20, 0, 1).position(10, 50).size(200);
   timeOfDayVal = createInput('').position(timeOfDay.x, timeOfDay.y + 30).size(50);
   timeOfDayVal.value('4');
   timeOfDay.input(function () {
@@ -21,7 +35,7 @@ function setup() {
     
   })
   //  TO GET SELECTED MONTH
-  monthVal = createSelect().position(200, timeOfDay.y);
+  monthVal = createSelect().position(timeOfDay.x + 300, timeOfDay.y).size(200);
   monthVal.option('Jan');
   monthVal.option('Feb');
   monthVal.option('Mar');
@@ -36,18 +50,18 @@ function setup() {
   monthVal.option('Dec');
   
   // TO GET DIRECTION OF WINDOW
-  direction = createSelect().position(300, timeOfDay.y);
+  direction = createSelect().position(monthVal.x + 300, timeOfDay.y).size(200);
   direction.option('North');
   direction.option('East');
   direction.option('South');
   direction.option('West');
   
   // TO CALCULATE HEAT GAIN
-  heatGain = createInput(' ').position(width - 150, timeOfDay.y).size(75);
+  heatGain = createInput(' ').position(width - 300, timeOfDay.y).size(75);
   calculateVal = createButton('Calculate').position(heatGain.x, heatGain.y + 30);
   calculateVal.mousePressed(calculate);
   
-  openCloseBlinds = createCheckbox('Blinds Open', true).position(73, height - 80).style('color', 'white');
+  openCloseBlinds = createCheckbox('Blinds Open', true).position(73, height - 80).style('color: white;');
   openCloseBlinds.changed(drawHouse);
   
   
@@ -163,11 +177,13 @@ function drawText (color)
 {
   fill(color);
   
+  textSize(25);
+
   text('Hour of the day', timeOfDay.x, timeOfDay.y - 5);
   
   text('Month', monthVal.x, monthVal.y - 5);
   
-  text('Heat Gain (Kwh-m^2)', heatGain.x, heatGain.y - 5);
+  text('Heat Gain (Kwh-m²)', heatGain.x, heatGain.y - 5);
   
   text('Direction of Window', direction.x, direction.y - 5)
   
