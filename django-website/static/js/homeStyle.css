@@ -1,0 +1,27 @@
+.header {
+    width: auto;
+    height: 100px;
+    border: 1px solid orange;
+    }
+.nav {
+    width: 125px;
+    height: 250px;
+    border: 1px solid green;
+    float: left;
+    }
+.sidebar {
+    width: 125px;
+    height: 500px;
+    border: 1px solid blue;
+    float: right;
+    }
+.main {
+    height: 350px;
+    }
+.footer {
+    width: auto;
+    height: 50px;
+    border: 1px solid red;
+    left: 0;
+    bottom: 0;
+    }
