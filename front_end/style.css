@@ -1,0 +1,53 @@
+.header{
+    background-color: #5383af;
+    float: top;
+    width:auto;
+    height:150px;
+    padding: 0px;
+    margin: 0px 25px;
+    border: 1px solid black;
+    text-align: center;
+    color:black;
+    font-style: fjalla;
+
+}
+body{
+    background-image: radial-gradient(circle, #5383af 0%, #76def3 100%);
+    text-align: center;
+    margin: 0px;
+    height: 100%;
+
+
+}
+.product{
+    width:250px;
+    height:600px;
+    position:fixed left;
+    float:left;
+    background-color: #5383af;
+    margin: 0px 25px;
+    padding: 5px;
+    border: 1px solid black;
+    text-align: left;
+
+}
+.team{
+    width:250px;
+    height:600px;
+    position: fixed right;
+    float:right;
+    margin: 0px 25px;
+    border: 1px solid black;
+    background-color: #5383af;
+    text-align: left;
+
+}
+
+.image{
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    width: 50%;
+}
