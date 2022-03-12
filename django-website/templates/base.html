@@ -1,0 +1,22 @@
+<!--templates/base.html-->
+
+{% load static %}
+
+<html>
+
+<head>
+    <!-- This is the head content defined in base.html -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% block head_global %}
+    {% endblock %}
+</head>
+
+<body>
+    <a href="/"><h1>Sustainablinds</h1></a>
+    {% block navbar_global %}
+    {% endblock %}
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
