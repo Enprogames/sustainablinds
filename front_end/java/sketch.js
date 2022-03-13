@@ -1,9 +1,9 @@
 
-let timeOfDay, timeOfDayVal;
-let monthVal, direction;
-let heatGain, blindPos, outsideTemp, outsideTempVal;
-let calculateVal, openCloseBlinds, outsideTempUpdate;
-let Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sept, Oct, Nov, Dec;
+let timeOfDay, timeOfDayVal; // Slider
+let monthVal, direction; // Select Box's
+let heatGain, blindPos, outsideTemp, outsideTempVal; // Text Box's
+let calculateVal, openCloseBlinds, outsideTempUpdate; // Buttons
+let Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sept, Oct, Nov, Dec; // Variables
 
 function setup() {
 
@@ -54,13 +54,12 @@ function setup() {
   openCloseBlinds.changed(drawHouse);
 
   // SUGESTED BLIND POSITION
-
   blindPos = createInput(' ').position(heatGain.x, heatGain.y + 100).size(75);
 
   outsideTemp = createInput(' ').position(heatGain.x - 300, timeOfDay.y).size(75);
-  outsideTemp.value(25);
+  outsideTemp.value(15);
   outsideTempUpdate = createButton('Set').position(outsideTemp.x, outsideTemp.y + 30);
-  outsideTempUpdate.mousePressed(updateTemp);
+  outsideTempUpdate.mousePressed(suggestedBlindPos);
   
   // ############################################
 
@@ -134,7 +133,6 @@ function setup() {
   
   // ############################################
 }
-
 
 function drawSun(position) {
   
@@ -257,39 +255,51 @@ function calculate ()
     {
       case 'Jan':
         heatGain.value(sJan[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(3);
         break;
       case 'Feb':
         heatGain.value(sFeb[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
       case 'Mar':
         heatGain.value(sMar[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(7);
         break;
       case 'Apr':
         heatGain.value(sApr[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(10);
         break;
       case 'May':
         heatGain.value(sMay[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(15);
         break;
       case 'Jun':
         heatGain.value(sJun[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Jul':
         heatGain.value(sJul[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Aug':
         heatGain.value(sAug[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Sept':
         heatGain.value(sSep[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(18);
         break;
       case 'Oct':
         heatGain.value(sOct[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(12);
         break;
       case 'Nov':
         heatGain.value(sNov[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(7);
         break;
       case 'Dec':
         heatGain.value(sDec[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
     }
   }
@@ -300,39 +310,51 @@ function calculate ()
     {
       case 'Jan':
         heatGain.value(nJan[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(3);
         break;
       case 'Feb':
         heatGain.value(nFeb[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
       case 'Mar':
         heatGain.value(nMar[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(7);
         break;
       case 'Apr':
         heatGain.value(nApr[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(10);
         break;
       case 'May':
         heatGain.value(nMay[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(15);
         break;
       case 'Jun':
         heatGain.value(nJun[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Jul':
         heatGain.value(nJul[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Aug':
         heatGain.value(nAug[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Sept':
         heatGain.value(nSep[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(18);
         break;
       case 'Oct':
         heatGain.value(nOct[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(12);
         break;
       case 'Nov':
         heatGain.value(nNov[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(8);
         break;
       case 'Dec':
         heatGain.value(nDec[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
     }
   }
@@ -342,39 +364,51 @@ function calculate ()
     {
       case 'Jan':
         heatGain.value(eJan[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(3);
         break;
       case 'Feb':
         heatGain.value(eFeb[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
       case 'Mar':
         heatGain.value(eMar[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(7);
         break;
       case 'Apr':
         heatGain.value(eApr[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(10);
         break;
       case 'May':
         heatGain.value(eMay[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(15);
         break;
       case 'Jun':
         heatGain.value(eJun[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Jul':
         heatGain.value(eJul[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Aug':
         heatGain.value(eAug[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Sept':
         heatGain.value(eSep[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(18);
         break;
       case 'Oct':
         heatGain.value(eOct[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(12);
         break;
       case 'Nov':
         heatGain.value(eNov[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(7);
         break;
       case 'Dec':
         heatGain.value(eDec[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
     }
   }
@@ -384,42 +418,55 @@ function calculate ()
     {
       case 'Jan':
         heatGain.value(wJan[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(3);
         break;
       case 'Feb':
         heatGain.value(wFeb[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
       case 'Mar':
         heatGain.value(wMar[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(7);
         break;
       case 'Apr':
         heatGain.value(wApr[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(10);
         break;
       case 'May':
         heatGain.value(wMay[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(15);
         break;
       case 'Jun':
         heatGain.value(wJun[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Jul':
         heatGain.value(wJul[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Aug':
         heatGain.value(wAug[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(25);
         break;
       case 'Sept':
         heatGain.value(wSep[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(18);
         break;
       case 'Oct':
         heatGain.value(wOct[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(12);
         break;
       case 'Nov':
         heatGain.value(wNov[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(7);
         break;
       case 'Dec':
         heatGain.value(wDec[timeOfDay.value() - 4] * reduction);
+        outsideTemp.value(4);
         break;
     }
   }
+  suggestedBlindPos();
 }
 
 function blindsOpenClose()
@@ -439,16 +486,10 @@ function windowResized() {
   drawHouse();
 }
 
-function updateTemp ()
-{
-  outsideTempVal = outsideTemp.value();
-  suggestedBlindPos();
-}
-
 function suggestedBlindPos ()
 {
 
-  if (outsideTempVal < 15)
+  if (outsideTemp.value() <= 18)
   {
     blindPos.value('Open')
   }
