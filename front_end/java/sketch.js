@@ -1,11 +1,12 @@
 
 let timeOfDay, timeOfDayVal;
 let monthVal, direction;
-let heatGain;
-let calculateVal, openCloseBlinds;
+let heatGain, blindPos, outsideTemp, outsideTempVal;
+let calculateVal, openCloseBlinds, outsideTempUpdate;
 let Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sept, Oct, Nov, Dec;
 
 function setup() {
+
   createCanvas(windowWidth, windowHeight);
   
   // Interactive Components
@@ -48,8 +49,18 @@ function setup() {
   calculateVal = createButton('Calculate').position(heatGain.x, heatGain.y + 30);
   calculateVal.mousePressed(calculate);
   
+  // TO OPEN/CLOSE BLINDS
   openCloseBlinds = createCheckbox('Blinds Open', true).position(73, height - 80).style('color: white;');
   openCloseBlinds.changed(drawHouse);
+
+  // SUGESTED BLIND POSITION
+
+  blindPos = createInput(' ').position(heatGain.x, heatGain.y + 100).size(75);
+
+  outsideTemp = createInput(' ').position(heatGain.x - 300, timeOfDay.y).size(75);
+  outsideTemp.value(25);
+  outsideTempUpdate = createButton('Set').position(outsideTemp.x, outsideTemp.y + 30);
+  outsideTempUpdate.mousePressed(updateTemp);
   
   // ############################################
 
@@ -97,31 +108,29 @@ function setup() {
   eFeb = [0, 0, 0, 0.9, 7, 9.8, 8, 4.1, 1.5, 1.2, 1, 0.7, 0.4, 0, 0, 0, 0];
   eMar = [0, 0, 0.5, 7.2, 13.3, 13.3, 10.1, 5.3, 2.1, 1.7, 1.5, 1.3, 0.9, 0.4, 0, 0, 0];
   eApr = [0, 0.2, 5.5, 12.9, 14.9, 13.6, 10.2, 5.5, 2.5, 2.1, 1.9, 1.7, 1.3, 0.9, 0.3, 0, 0];
-
-  // Rest is just a copy of North
-  eMay = [0, 1, 2.1, 1.7, 1.8, 2.1, 2.3, 2.5, 2.5, 2.5, 2.3, 2.1, 1.8, 1.7, 2.1, 1, 0];
-  eJun = [0.1, 2.3, 3.1, 2.1, 2, 2.2, 2.4, 2.5, 2.6, 2.5, 2.4, 2.2, 2, 2.1, 3.1, 2.3, 0.1];
-  eJul = [0, 1.7, 2.7, 2, 2, 2.2, 2.5, 2.6, 2.6, 2.6, 2.5, 2.2, 2, 2, 2.7, 1.7, 0];
-  eAug = [0, 0.3, 1.2, 1.3, 1.7, 2, 2.2, 2.4, 2.4, 2.4, 2.2, 2, 1.7, 1.3, 1.2, 0.3, 0];
-  eSep = [0, 0, 0.1, 0.6, 1.1, 1.5, 1.7, 1.9, 1.9, 1.9, 1.7, 1.5, 1.1, 0.6, 0.1, 0, 0];
-  eOct = [0, 0, 0.1, 0.6, 1, 1.3, 1.5, 1.5, 1.5, 1.3, 1, 0.6, 0.1, 0, 0, 0];
-  eNov = [0, 0, 0, 0, 0.1, 0.6, 0.9, 1, 1.1, 1, 0.9, 0.6, 0.1, 0, 0, 0, 0];
-  eDec = [0, 0, 0, 0, 0, 0.3, 0.7, 0.8, 0.9, 0.8, 0.7, 0.3, 0, 0, 0, 0, 0];
+  eMay = [0, 2.8, 10.8, 15.1, 15.8, 14.1, 10.5, 5.8, 2.9, 2.5, 2.3, 2.1, 1.8, 1.4, 0.8, 0.2, 0];
+  eJun = [0.2, 5.2, 11.8, 14.8, 15.1, 13.4, 10, 5.7, 3, 2.6, 2.4, 2.2, 1.9, 1.5, 1, 0.4, 0];
+  eJul = [0.1, 4.2, 11.6, 15.1, 15.6, 13.8, 10.4, 5.8, 3, 2.6, 2.5, 2.2, 2.2, 1.9, 1.5, 1, 0.3];
+  eAug = [0, 0.9, 8, 13.9, 15.4, 13.9, 10.5, 5.8, 2.8, 2.4, 2.2, 2, 1.6, 1.2, 0.6, 0.1, 0];
+  eSep = [0, 0, 1.9, 9.7, 13.7, 13.1, 10, 5.3, 2.3, 1.9, 1.7, 1.5, 1.1, 0.6, 0.1, 0, 0];
+  eOct = [0, 0, 0, 2.5, 9.8, 11.7, 9.3, 4.8, 1.9, 1.5, 1.3, 0.6, 0.1, 0, 0, 0];
+  eNov = [0, 0, 0, 0, 2.9, 7.8, 7.2, 3.8, 1.3, 1, 0.9, 0.6, 0.1, 0, 0, 0, 0];
+  eDec = [0, 0, 0, 0, 0.6, 5.5, 6.3, 3.4, 1.1, 0.9, 0.7, 0.3, 0, 0, 0, 0, 0];
 
     // WEST
 
-  wJan = [0, 0, 0, 0, 0.1, 0.4, 0.8, 0.9, 1, 0.9, 0.8, 0.4, 0.1, 0, 0, 0, 0];
-  wFeb = [0, 0, 0, 0, 0.4, 0.7, 1, 1.2, 1.2, 1.2, 1, 0.7, 0.4, 0, 0, 0, 0];
-  wMar = [0, 0, 0, 0.4, 0.9, 1.3, 1.5, 1.7, 1.7, 1.7, 1.5, 1.3, 0.9, 0.4, 0, 0, 0];
-  wApr = [0, 0, 0.5, 1, 1.4, 1.7, 1.9, 2.1, 2.1, 2.1, 1.9, 1.7, 1.4, 1, 0.5, 0, 0];
-  wMay = [0, 1, 2.1, 1.7, 1.8, 2.1, 2.3, 2.5, 2.5, 2.5, 2.3, 2.1, 1.8, 1.7, 2.1, 1, 0];
-  wJun = [0.1, 2.3, 3.1, 2.1, 2, 2.2, 2.4, 2.5, 2.6, 2.5, 2.4, 2.2, 2, 2.1, 3.1, 2.3, 0.1];
-  wJul = [0, 1.7, 2.7, 2, 2, 2.2, 2.5, 2.6, 2.6, 2.6, 2.5, 2.2, 2, 2, 2.7, 1.7, 0];
-  wAug = [0, 0.3, 1.2, 1.3, 1.7, 2, 2.2, 2.4, 2.4, 2.4, 2.2, 2, 1.7, 1.3, 1.2, 0.3, 0];
-  wSep = [0, 0, 0.1, 0.6, 1.1, 1.5, 1.7, 1.9, 1.9, 1.9, 1.7, 1.5, 1.1, 0.6, 0.1, 0, 0];
-  wOct = [0, 0, 0.1, 0.6, 1, 1.3, 1.5, 1.5, 1.5, 1.3, 1, 0.6, 0.1, 0, 0, 0];
-  wNov = [0, 0, 0, 0, 0.1, 0.6, 0.9, 1, 1.1, 1, 0.9, 0.6, 0.1, 0, 0, 0, 0];
-  wDec = [0, 0, 0, 0, 0, 0.3, 0.7, 0.8, 0.9, 0.8, 0.7, 0.3, 0, 0, 0, 0, 0];
+  wJan = [0, 0, 0, 0, 0.1, 0.4, 0.8, 1, 1.3, 3.7, 7, 6.9, 1.6, 0, 0, 0, 0];
+  wFeb = [0, 0, 0, 0, 0.4, 0.7, 1, 1.2, 1.5, 4.1, 8, 9.8, 7, 0.9, 0, 0, 0];
+  wMar = [0, 0, 0, 0.4, 0.9, 1.3, 1.5, 1.7, 2.1, 5.3, 10.1, 13.3, 13.3, 7.2, 0.5, 0, 0];
+  wApr = [0, 0, 0.3, 0.9, 1.3, 1.7, 1.9, 2.1, 2.5, 5.5, 10.2, 13.6, 14.9, 12.9, 5.5, 0.2, 0];
+  wMay = [0, 0.2, 0.8, 1.4, 1.8, 2.1, 2.3, 2.5, 2.9, 5.8, 10.5, 14.1, 15.8, 15.1, 10.8, 2.8, 0];
+  wJun = [0, 0.4, 1, 1.5, 1.9, 2.2, 2.4, 2.6, 3, 5.7, 10, 13.4, 15.1, 14.8, 11.8, 5.2, 0.2];
+  wJul = [0, 0.3, 1, 1.5, 1.9, 2.2, 2.5, 2.6, 3, 5.8, 10.4, 13.8, 15.6, 15.1, 11.6, 4.2, 0.1];
+  wAug = [0, 0.1, 0.6, 1.2, 1.6, 2, 2.2, 2.4, 2.8,  5.8, 10.5, 13.9, 15.4, 13.9, 8, 0.9, 0];
+  wSep = [0, 0, 0.1, 0.6, 1.1, 1.5, 1.7, 1.9, 2.3, 5.3, 10, 13.1, 13.7, 9.7, 1.8, 0, 0];
+  wOct = [0, 0, 0, 0.1, 0.6, 1, 0.6, 1, 1.3, 1.5, 1.9, 4.8, 9.3, 11.7, 9.8, 2.5, 0, 0, 0];
+  wNov = [0, 0, 0, 0, 0.1, 0.6, 0.9, 1, 1.3, 3.8, 7.2, 7.8, 2.9, 0, 0, 0, 0];
+  wDec = [0, 0, 0, 0, 0, 0.3, 0.7, 0.9, 1.1, 3.4, 6.3, 5.5, 0.6, 0, 0, 0, 0];
   
   // ############################################
 }
@@ -226,6 +235,10 @@ function drawText (color)
   text('Heat Gain (kWh-m²)', heatGain.x, heatGain.y - 5);
   
   text('Direction of Window', direction.x, direction.y - 5)
+
+  text('Outside temperature', outsideTemp.x, outsideTemp.y - 5)
+
+  text('Suggested Blind Position', blindPos.x, blindPos.y - 6)
   
 }
 
@@ -424,6 +437,25 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   drawSun(timeOfDay.value());
   drawHouse();
+}
+
+function updateTemp ()
+{
+  outsideTempVal = outsideTemp.value();
+  suggestedBlindPos();
+}
+
+function suggestedBlindPos ()
+{
+
+  if (outsideTempVal < 15)
+  {
+    blindPos.value('Open')
+  }
+  else
+  {
+    blindPos.value('Closed')
+  }
 }
 
 
