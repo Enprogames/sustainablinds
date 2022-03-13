@@ -1,24 +1,12 @@
-// // FOR CSV FILE
-// const fs = require("fs");
-// const csv = require('csvtojson');
-// const { Parser } = require('json2csv');
-
-// (async () => {
-
-//   // Load files
-//   const heatGainData = await csv().fromFile("NameOfCSVFile.csv");
-
-
-// })
-
 
 let timeOfDay, timeOfDayVal;
 let monthVal, direction;
-let heatGain;
-let calculateVal, openCloseBlinds;
+let heatGain, blindPos, outsideTemp, outsideTempVal;
+let calculateVal, openCloseBlinds, outsideTempUpdate;
 let Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sept, Oct, Nov, Dec;
 
 function setup() {
+
   createCanvas(windowWidth, windowHeight);
   
   // Interactive Components
@@ -61,11 +49,18 @@ function setup() {
   calculateVal = createButton('Calculate').position(heatGain.x, heatGain.y + 30);
   calculateVal.mousePressed(calculate);
   
+  // TO OPEN/CLOSE BLINDS
   openCloseBlinds = createCheckbox('Blinds Open', true).position(73, height - 80).style('color: white;');
   openCloseBlinds.changed(drawHouse);
-  
-  
-  
+
+  // SUGESTED BLIND POSITION
+
+  blindPos = createInput(' ').position(heatGain.x, heatGain.y + 100).size(75);
+
+  outsideTemp = createInput(' ').position(heatGain.x - 300, timeOfDay.y).size(75);
+  outsideTemp.value(25);
+  outsideTempUpdate = createButton('Set').position(outsideTemp.x, outsideTemp.y + 30);
+  outsideTempUpdate.mousePressed(updateTemp);
   
   // ############################################
 
@@ -75,13 +70,67 @@ function setup() {
   
   // ############################################
   
-  // Heat Gain Data
-  Jan = [0, 0, 0, 0, 1.3, 8, 13.4, 16.4, 17.3, 16.4, 13.4, 8, 1.3, 0, 0, 0, 0];
-  Feb = [0, 0, 0, 0.3, 4.3, 9.7, 13.4, 15.6, 16.4, 15.6, 13.4, 9.7, 4.3, 0.3, 0, 0, 0];
-  Mar = [0, 0, 0, 1.5, 6, 10.6, 14.2, 16.4, 17.1, 16.4, 14.2, 10.6, 6, 1.5, 0, 0, 0];
-  Apr = [0, 0, 0.4, 1.5, 4.4, 8.2, 11.3, 13.2, 13.9, 13.2, 11.3, 8.2, 4.4, 1.5 ,0.4, 0, 0];
-  May = [0, 0.2, 0.8, 1.5, 3.2, 6.3, 9.2, 11.1, 11.7, 11.1, 9.2, 6.3, 3.2, 1.5, 0.8, 0.2, 0];
-  Jun = [0, 0.4, 1, 1.6, 2.6, 5, 7.5, 9.3, 9.9, 9.3, 7.5, 5, 2.6, 1.6, 1, 0.4, 0];
+  // DATA
+  
+    // NORTH
+  
+  nJan = [0, 0, 0, 0, 0.1, 0.4, 0.8, 0.9, 1, 0.9, 0.8, 0.4, 0.1, 0, 0, 0, 0];
+  nFeb = [0, 0, 0, 0, 0.4, 0.7, 1, 1.2, 1.2, 1.2, 1, 0.7, 0.4, 0, 0, 0, 0];
+  nMar = [0, 0, 0, 0.4, 0.9, 1.3, 1.5, 1.7, 1.7, 1.7, 1.5, 1.3, 0.9, 0.4, 0, 0, 0];
+  nApr = [0, 0, 0.5, 1, 1.4, 1.7, 1.9, 2.1, 2.1, 2.1, 1.9, 1.7, 1.4, 1, 0.5, 0, 0];
+  nMay = [0, 1, 2.1, 1.7, 1.8, 2.1, 2.3, 2.5, 2.5, 2.5, 2.3, 2.1, 1.8, 1.7, 2.1, 1, 0];
+  nJun = [0.1, 2.3, 3.1, 2.1, 2, 2.2, 2.4, 2.5, 2.6, 2.5, 2.4, 2.2, 2, 2.1, 3.1, 2.3, 0.1];
+  nJul = [0, 1.7, 2.7, 2, 2, 2.2, 2.5, 2.6, 2.6, 2.6, 2.5, 2.2, 2, 2, 2.7, 1.7, 0];
+  nAug = [0, 0.3, 1.2, 1.3, 1.7, 2, 2.2, 2.4, 2.4, 2.4, 2.2, 2, 1.7, 1.3, 1.2, 0.3, 0];
+  nSep = [0, 0, 0.1, 0.6, 1.1, 1.5, 1.7, 1.9, 1.9, 1.9, 1.7, 1.5, 1.1, 0.6, 0.1, 0, 0];
+  nOct = [0, 0, 0.1, 0.6, 1, 1.3, 1.5, 1.5, 1.5, 1.3, 1, 0.6, 0.1, 0, 0, 0];
+  nNov = [0, 0, 0, 0, 0.1, 0.6, 0.9, 1, 1.1, 1, 0.9, 0.6, 0.1, 0, 0, 0, 0];
+  nDec = [0, 0, 0, 0, 0, 0.3, 0.7, 0.8, 0.9, 0.8, 0.7, 0.3, 0, 0, 0, 0, 0];
+
+    // SOUTH
+
+  sJan = [0, 0, 0, 0, 1.3, 8, 13.4, 16.4, 17.3, 16.4, 13.4, 8, 1.3, 0, 0, 0, 0];
+  sFeb = [0, 0, 0, 0.3, 4.3, 9.7, 13.4, 15.6, 16.4, 15.6, 13.4, 9.7, 4.3, 0.3, 0, 0, 0];
+  sMar = [0, 0, 0, 1.5, 6, 10.6, 14.2, 16.4, 17.1, 16.4, 14.2, 10.6, 6, 1.5, 0, 0, 0];
+  sApr = [0, 0, 0.4, 1.5, 4.4, 8.2, 11.3, 13.2, 13.9, 13.2, 11.3, 8.2, 4.4, 1.5 ,0.4, 0, 0];
+  sMay = [0, 0.2, 0.8, 1.5, 3.2, 6.3, 9.2, 11.1, 11.7, 11.1, 9.2, 6.3, 3.2, 1.5, 0.8, 0.2, 0];
+  sJun = [0, 0.4, 1, 1.6, 2.6, 5, 7.5, 9.3, 9.9, 9.3, 7.5, 5, 2.6, 1.6, 1, 0.4, 0];
+  sJul = [0, 0.3, 1, 1.6, 2.9, 5.5, 8.3, 10.1, 10.7, 10.1, 8.3, 5.5, 2.9, 1.6, 1, 0.3, 0];
+  sAug = [0, 0.1, 0.6, 1.5, 3.9, 7.3, 10.4, 12.3, 13, 12.3, 10.4, 7.3, 3.9, 1.5, 0.6, 0.1, 0];
+  sSep = [0, 0, 0.1, 0.6, 1.1, 1.5, 1.7, 1.9, 1.9, 1.9, 1.7, 1.5, 1.1, 0.6, 0.1, 0, 0];
+  sOct = [0, 0, 0, 0.1, 0.6, 1, 1.3, 1.5, 1.5, 1.5, 1.3, 1, 0.6, 0.1, 0, 0, 0];
+  sNov = [0, 0, 0, 0, 0.1, 0.6, 0.9, 1, 1.1, 1, 0.9, 0.6, 0.1, 0, 0, 0, 0];
+  sDec = [0, 0, 0, 0, 0, 0.3, 0.7, 0.8, 0.9, 0.8, 0.7, 0.3, 0, 0, 0, 0, 0];
+
+    // EAST
+
+  eJan = [0, 0, 0, 0, 1.6, 6.9, 7, 3.7, 1.3, 1, 0.8, 0.4, 0.1, 0, 0, 0, 0];
+  eFeb = [0, 0, 0, 0.9, 7, 9.8, 8, 4.1, 1.5, 1.2, 1, 0.7, 0.4, 0, 0, 0, 0];
+  eMar = [0, 0, 0.5, 7.2, 13.3, 13.3, 10.1, 5.3, 2.1, 1.7, 1.5, 1.3, 0.9, 0.4, 0, 0, 0];
+  eApr = [0, 0.2, 5.5, 12.9, 14.9, 13.6, 10.2, 5.5, 2.5, 2.1, 1.9, 1.7, 1.3, 0.9, 0.3, 0, 0];
+  eMay = [0, 2.8, 10.8, 15.1, 15.8, 14.1, 10.5, 5.8, 2.9, 2.5, 2.3, 2.1, 1.8, 1.4, 0.8, 0.2, 0];
+  eJun = [0.2, 5.2, 11.8, 14.8, 15.1, 13.4, 10, 5.7, 3, 2.6, 2.4, 2.2, 1.9, 1.5, 1, 0.4, 0];
+  eJul = [0.1, 4.2, 11.6, 15.1, 15.6, 13.8, 10.4, 5.8, 3, 2.6, 2.5, 2.2, 2.2, 1.9, 1.5, 1, 0.3];
+  eAug = [0, 0.9, 8, 13.9, 15.4, 13.9, 10.5, 5.8, 2.8, 2.4, 2.2, 2, 1.6, 1.2, 0.6, 0.1, 0];
+  eSep = [0, 0, 1.9, 9.7, 13.7, 13.1, 10, 5.3, 2.3, 1.9, 1.7, 1.5, 1.1, 0.6, 0.1, 0, 0];
+  eOct = [0, 0, 0, 2.5, 9.8, 11.7, 9.3, 4.8, 1.9, 1.5, 1.3, 0.6, 0.1, 0, 0, 0];
+  eNov = [0, 0, 0, 0, 2.9, 7.8, 7.2, 3.8, 1.3, 1, 0.9, 0.6, 0.1, 0, 0, 0, 0];
+  eDec = [0, 0, 0, 0, 0.6, 5.5, 6.3, 3.4, 1.1, 0.9, 0.7, 0.3, 0, 0, 0, 0, 0];
+
+    // WEST
+
+  wJan = [0, 0, 0, 0, 0.1, 0.4, 0.8, 1, 1.3, 3.7, 7, 6.9, 1.6, 0, 0, 0, 0];
+  wFeb = [0, 0, 0, 0, 0.4, 0.7, 1, 1.2, 1.5, 4.1, 8, 9.8, 7, 0.9, 0, 0, 0];
+  wMar = [0, 0, 0, 0.4, 0.9, 1.3, 1.5, 1.7, 2.1, 5.3, 10.1, 13.3, 13.3, 7.2, 0.5, 0, 0];
+  wApr = [0, 0, 0.3, 0.9, 1.3, 1.7, 1.9, 2.1, 2.5, 5.5, 10.2, 13.6, 14.9, 12.9, 5.5, 0.2, 0];
+  wMay = [0, 0.2, 0.8, 1.4, 1.8, 2.1, 2.3, 2.5, 2.9, 5.8, 10.5, 14.1, 15.8, 15.1, 10.8, 2.8, 0];
+  wJun = [0, 0.4, 1, 1.5, 1.9, 2.2, 2.4, 2.6, 3, 5.7, 10, 13.4, 15.1, 14.8, 11.8, 5.2, 0.2];
+  wJul = [0, 0.3, 1, 1.5, 1.9, 2.2, 2.5, 2.6, 3, 5.8, 10.4, 13.8, 15.6, 15.1, 11.6, 4.2, 0.1];
+  wAug = [0, 0.1, 0.6, 1.2, 1.6, 2, 2.2, 2.4, 2.8,  5.8, 10.5, 13.9, 15.4, 13.9, 8, 0.9, 0];
+  wSep = [0, 0, 0.1, 0.6, 1.1, 1.5, 1.7, 1.9, 2.3, 5.3, 10, 13.1, 13.7, 9.7, 1.8, 0, 0];
+  wOct = [0, 0, 0, 0.1, 0.6, 1, 0.6, 1, 1.3, 1.5, 1.9, 4.8, 9.3, 11.7, 9.8, 2.5, 0, 0, 0];
+  wNov = [0, 0, 0, 0, 0.1, 0.6, 0.9, 1, 1.3, 3.8, 7.2, 7.8, 2.9, 0, 0, 0, 0];
+  wDec = [0, 0, 0, 0, 0, 0.3, 0.7, 0.9, 1.1, 3.4, 6.3, 5.5, 0.6, 0, 0, 0, 0];
   
   // ############################################
 }
@@ -183,9 +232,13 @@ function drawText (color)
   
   text('Month', monthVal.x, monthVal.y - 5);
   
-  text('Heat Gain (Kwh-m²)', heatGain.x, heatGain.y - 5);
+  text('Heat Gain (kWh-m²)', heatGain.x, heatGain.y - 5);
   
   text('Direction of Window', direction.x, direction.y - 5)
+
+  text('Outside temperature', outsideTemp.x, outsideTemp.y - 5)
+
+  text('Suggested Blind Position', blindPos.x, blindPos.y - 6)
   
 }
 
@@ -198,44 +251,174 @@ function calculate ()
     reduction = 0.45;
   }
   
-  switch(monthVal.value())
+  if (direction.value() == 'South')
   {
-    case 'Jan':
-      heatGain.value(Jan[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Feb':
-      heatGain.value(Feb[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Mar':
-      heatGain.value(Mar[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Apr':
-      heatGain.value(Apr[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'May':
-      heatGain.value(May[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Jun':
-      heatGain.value(Jun[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Jul':
-      heatGain.value(Jul[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Aug':
-      heatGain.value(Aug[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Sept':
-      heatGain.value(Sept[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Oct':
-      heatGain.value(Oct[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Nov':
-      heatGain.value(Nov[timeOfDay.value() - 4] * reduction);
-      break;
-    case 'Dec':
-      heatGain.value(Dec[timeOfDay.value() - 4] * reduction);
-      break;
+    switch(monthVal.value())
+    {
+      case 'Jan':
+        heatGain.value(sJan[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Feb':
+        heatGain.value(sFeb[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Mar':
+        heatGain.value(sMar[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Apr':
+        heatGain.value(sApr[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'May':
+        heatGain.value(sMay[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jun':
+        heatGain.value(sJun[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jul':
+        heatGain.value(sJul[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Aug':
+        heatGain.value(sAug[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Sept':
+        heatGain.value(sSep[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Oct':
+        heatGain.value(sOct[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Nov':
+        heatGain.value(sNov[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Dec':
+        heatGain.value(sDec[timeOfDay.value() - 4] * reduction);
+        break;
+    }
+  }
+
+  else if (direction.value() == 'North')
+  {
+    switch(monthVal.value())
+    {
+      case 'Jan':
+        heatGain.value(nJan[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Feb':
+        heatGain.value(nFeb[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Mar':
+        heatGain.value(nMar[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Apr':
+        heatGain.value(nApr[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'May':
+        heatGain.value(nMay[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jun':
+        heatGain.value(nJun[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jul':
+        heatGain.value(nJul[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Aug':
+        heatGain.value(nAug[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Sept':
+        heatGain.value(nSep[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Oct':
+        heatGain.value(nOct[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Nov':
+        heatGain.value(nNov[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Dec':
+        heatGain.value(nDec[timeOfDay.value() - 4] * reduction);
+        break;
+    }
+  }
+  else if (direction.value() == 'East')
+  {
+    switch(monthVal.value())
+    {
+      case 'Jan':
+        heatGain.value(eJan[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Feb':
+        heatGain.value(eFeb[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Mar':
+        heatGain.value(eMar[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Apr':
+        heatGain.value(eApr[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'May':
+        heatGain.value(eMay[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jun':
+        heatGain.value(eJun[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jul':
+        heatGain.value(eJul[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Aug':
+        heatGain.value(eAug[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Sept':
+        heatGain.value(eSep[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Oct':
+        heatGain.value(eOct[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Nov':
+        heatGain.value(eNov[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Dec':
+        heatGain.value(eDec[timeOfDay.value() - 4] * reduction);
+        break;
+    }
+  }
+  else if (direction.value() == 'West')
+  {
+    switch(monthVal.value())
+    {
+      case 'Jan':
+        heatGain.value(wJan[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Feb':
+        heatGain.value(wFeb[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Mar':
+        heatGain.value(wMar[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Apr':
+        heatGain.value(wApr[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'May':
+        heatGain.value(wMay[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jun':
+        heatGain.value(wJun[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Jul':
+        heatGain.value(wJul[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Aug':
+        heatGain.value(wAug[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Sept':
+        heatGain.value(wSep[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Oct':
+        heatGain.value(wOct[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Nov':
+        heatGain.value(wNov[timeOfDay.value() - 4] * reduction);
+        break;
+      case 'Dec':
+        heatGain.value(wDec[timeOfDay.value() - 4] * reduction);
+        break;
+    }
   }
 }
 
@@ -254,6 +437,25 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   drawSun(timeOfDay.value());
   drawHouse();
+}
+
+function updateTemp ()
+{
+  outsideTempVal = outsideTemp.value();
+  suggestedBlindPos();
+}
+
+function suggestedBlindPos ()
+{
+
+  if (outsideTempVal < 15)
+  {
+    blindPos.value('Open')
+  }
+  else
+  {
+    blindPos.value('Closed')
+  }
 }
 
 
