@@ -15,7 +15,10 @@ html, body{
     text-align: center;
     color:black;
 }
-
+#title{
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
 #theme{
     float: right;
     z-index: -20;
