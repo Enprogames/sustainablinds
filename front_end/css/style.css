@@ -30,21 +30,23 @@ a:visited{
 }
 
 .product{
-    width:250px;
-    height:600px;
+    width:275px;
+    height:750px;
     position:fixed left;
     float:left;
     padding: 5px;
     border: 1px solid skyblue;
+    border-top: 0px;
     text-align: left;
 
 }
 .team{
-    width:250px;
-    height:600px;
+    width:275px;
+    height:750px;
     position: fixed right;
     float:right;
     border: 1px solid skyblue;
+    border-top: 0px;
     text-align: left;
 
 }

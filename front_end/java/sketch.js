@@ -45,7 +45,7 @@ function setup() {
   direction.option('West');
   
   // TO CALCULATE HEAT GAIN
-  heatGain = createInput(' ').position(width - 300, timeOfDay.y).size(75);
+  heatGain = createInput(' ').position(direction.x + 300, timeOfDay.y).size(75);
   calculateVal = createButton('Calculate').position(heatGain.x, heatGain.y + 30);
   calculateVal.mousePressed(calculate);
   
@@ -54,12 +54,13 @@ function setup() {
   openCloseBlinds.changed(drawHouse);
 
   // SUGESTED BLIND POSITION
-  blindPos = createInput(' ').position(heatGain.x, heatGain.y + 100).size(75);
-
-  outsideTemp = createInput(' ').position(heatGain.x - 300, timeOfDay.y).size(75);
+  
+  outsideTemp = createInput(' ').position(heatGain.x + 300, timeOfDay.y).size(75);
   outsideTemp.value(15);
   outsideTempUpdate = createButton('Set').position(outsideTemp.x, outsideTemp.y + 30);
   outsideTempUpdate.mousePressed(suggestedBlindPos);
+
+  blindPos = createInput(' ').position(outsideTemp.x, outsideTemp.y + 100).size(75);
   
   // ############################################
 
@@ -254,51 +255,51 @@ function calculate ()
     switch(monthVal.value())
     {
       case 'Jan':
-        heatGain.value(sJan[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sJan[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(3);
         break;
       case 'Feb':
-        heatGain.value(sFeb[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sFeb[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
       case 'Mar':
-        heatGain.value(sMar[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sMar[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(7);
         break;
       case 'Apr':
-        heatGain.value(sApr[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sApr[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(10);
         break;
       case 'May':
-        heatGain.value(sMay[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sMay[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(15);
         break;
       case 'Jun':
-        heatGain.value(sJun[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sJun[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Jul':
-        heatGain.value(sJul[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sJul[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Aug':
-        heatGain.value(sAug[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sAug[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Sept':
-        heatGain.value(sSep[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sSep[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(18);
         break;
       case 'Oct':
-        heatGain.value(sOct[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sOct[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(12);
         break;
       case 'Nov':
-        heatGain.value(sNov[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sNov[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(7);
         break;
       case 'Dec':
-        heatGain.value(sDec[timeOfDay.value() - 4] * reduction);
+        heatGain.value((sDec[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
     }
@@ -309,51 +310,51 @@ function calculate ()
     switch(monthVal.value())
     {
       case 'Jan':
-        heatGain.value(nJan[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nJan[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(3);
         break;
       case 'Feb':
-        heatGain.value(nFeb[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nFeb[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
       case 'Mar':
-        heatGain.value(nMar[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nMar[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(7);
         break;
       case 'Apr':
-        heatGain.value(nApr[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nApr[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(10);
         break;
       case 'May':
-        heatGain.value(nMay[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nMay[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(15);
         break;
       case 'Jun':
-        heatGain.value(nJun[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nJun[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Jul':
-        heatGain.value(nJul[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nJul[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Aug':
-        heatGain.value(nAug[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nAug[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Sept':
-        heatGain.value(nSep[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nSep[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(18);
         break;
       case 'Oct':
-        heatGain.value(nOct[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nOct[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(12);
         break;
       case 'Nov':
-        heatGain.value(nNov[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nNov[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(8);
         break;
       case 'Dec':
-        heatGain.value(nDec[timeOfDay.value() - 4] * reduction);
+        heatGain.value((nDec[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
     }
@@ -363,51 +364,51 @@ function calculate ()
     switch(monthVal.value())
     {
       case 'Jan':
-        heatGain.value(eJan[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eJan[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(3);
         break;
       case 'Feb':
-        heatGain.value(eFeb[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eFeb[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
       case 'Mar':
-        heatGain.value(eMar[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eMar[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(7);
         break;
       case 'Apr':
-        heatGain.value(eApr[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eApr[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(10);
         break;
       case 'May':
-        heatGain.value(eMay[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eMay[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(15);
         break;
       case 'Jun':
-        heatGain.value(eJun[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eJun[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Jul':
-        heatGain.value(eJul[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eJul[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Aug':
-        heatGain.value(eAug[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eAug[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Sept':
-        heatGain.value(eSep[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eSep[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(18);
         break;
       case 'Oct':
-        heatGain.value(eOct[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eOct[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(12);
         break;
       case 'Nov':
-        heatGain.value(eNov[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eNov[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(7);
         break;
       case 'Dec':
-        heatGain.value(eDec[timeOfDay.value() - 4] * reduction);
+        heatGain.value((eDec[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
     }
@@ -417,51 +418,51 @@ function calculate ()
     switch(monthVal.value())
     {
       case 'Jan':
-        heatGain.value(wJan[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wJan[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(3);
         break;
       case 'Feb':
-        heatGain.value(wFeb[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wFeb[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
       case 'Mar':
-        heatGain.value(wMar[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wMar[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(7);
         break;
       case 'Apr':
-        heatGain.value(wApr[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wApr[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(10);
         break;
       case 'May':
-        heatGain.value(wMay[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wMay[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(15);
         break;
       case 'Jun':
-        heatGain.value(wJun[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wJun[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Jul':
-        heatGain.value(wJul[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wJul[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Aug':
-        heatGain.value(wAug[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wAug[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(25);
         break;
       case 'Sept':
-        heatGain.value(wSep[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wSep[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(18);
         break;
       case 'Oct':
-        heatGain.value(wOct[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wOct[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(12);
         break;
       case 'Nov':
-        heatGain.value(wNov[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wNov[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(7);
         break;
       case 'Dec':
-        heatGain.value(wDec[timeOfDay.value() - 4] * reduction);
+        heatGain.value((wDec[timeOfDay.value() - 4] * reduction).toFixed(2));
         outsideTemp.value(4);
         break;
     }
