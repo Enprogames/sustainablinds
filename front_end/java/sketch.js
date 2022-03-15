@@ -56,7 +56,6 @@ function setup() {
   // SUGESTED BLIND POSITION
   
   outsideTemp = createInput(' ').position(heatGain.x + 300, timeOfDay.y).size(75);
-  outsideTemp.value(15);
   outsideTempUpdate = createButton('Set').position(outsideTemp.x, outsideTemp.y + 30);
   outsideTempUpdate.mousePressed(suggestedBlindPos);
 
